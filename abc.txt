@@ -1,0 +1,426 @@
+commit 2fe78b5c17b504bf20cfaf70e6628f57aa8a4937
+Author: Jayprakash <jayprakashd1@kpit.com>
+Date:   Tue Mar 8 13:05:57 2022 +0100
+
+    1 commit
+
+diff --git a/projects/fibo_series/CMakeLists.txt b/projects/fibo_series/CMakeLists.txt
+index e018d41..f754018 100644
+--- a/projects/fibo_series/CMakeLists.txt
++++ b/projects/fibo_series/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-# Set the minimum version of CMake that can be used--- 
++# Set the minimum version of CMake that can be used
+ # To find the cmake version run
+ # $ cmake --version
+ cmake_minimum_required(VERSION 3.22.1)
+
+commit 179a0029c3aeeb3a1aa8e0886be66ab6fa88b551
+Author: JP-GITv1 <100771978+JP-GITv1@users.noreply.github.com>
+Date:   Tue Mar 8 13:03:00 2022 +0100
+
+    second
+
+diff --git a/projects/CMakeLists.txt b/projects/CMakeLists.txt
+new file mode 100644
+index 0000000..8da2ad9
+--- /dev/null
++++ b/projects/CMakeLists.txt
+@@ -0,0 +1,10 @@
++cmake_minimum_required(VERSION 3.22.1)
++
++
++
++# Include sub-projects.
++add_subdirectory (fibo_series)
++add_subdirectory (palinedrome)
++add_subdirectory (prime_num)
++add_subdirectory (sumOfdigit)
++add_subdirectory (sayBye)
+\ No newline at end of file
+diff --git a/projects/fibo_series/CMakeLists.txt b/projects/fibo_series/CMakeLists.txt
+new file mode 100644
+index 0000000..e018d41
+--- /dev/null
++++ b/projects/fibo_series/CMakeLists.txt
+@@ -0,0 +1,24 @@
++# Set the minimum version of CMake that can be used--- 
++# To find the cmake version run
++# $ cmake --version
++cmake_minimum_required(VERSION 3.22.1)
++
++
++# Set the project name
++project(fibo)
++
++# Create a sources variable with a link to all cpp files to compile
++set(SOURCES
++    src/fibo.cpp
++   
++)
++
++# Add an executable with the above sources
++add_executable(fibo ${SOURCES})
++
++# Set the directories that should be included in the build command for this target
++# when running g++ these will be included as -I/directory/path/
++target_include_directories(fibo
++    PRIVATE 
++        ${PROJECT_SOURCE_DIR}/inc
++)
+\ No newline at end of file
+diff --git a/projects/fibo_series/inc/fibo.h b/projects/fibo_series/inc/fibo.h
+new file mode 100644
+index 0000000..28b972e
+--- /dev/null
++++ b/projects/fibo_series/inc/fibo.h
+@@ -0,0 +1,5 @@
++#include <iostream>
++
++#include <math.h>
++
++using namespace std;
+\ No newline at end of file
+diff --git a/projects/fibo_series/src/fibo.cpp b/projects/fibo_series/src/fibo.cpp
+new file mode 100644
+index 0000000..698e545
+--- /dev/null
++++ b/projects/fibo_series/src/fibo.cpp
+@@ -0,0 +1,29 @@
++#include "fibo.h"
++// A utility function that returns true if x is perfect square
++bool isPerfectSquare(int x)
++{
++	int s = sqrt(x);
++	return (s*s == x);
++}
++
++// Returns true if n is a Fibonacci Number, else false
++bool isFibonacci(int n)
++{
++	// n is Fibonacci if one of 5*n*n + 4 or 5*n*n - 4 or both
++	// is a perfect square
++	return isPerfectSquare(5*n*n + 4) ||
++		isPerfectSquare(5*n*n - 4);
++}
++
++int main(){
++
++    cout<<"*************fibonacci series program's running ********"<<endl;
++   
++    for (int i = 1; i <= 10; i++){
++	    isFibonacci(i)? cout << i << " is a Fibonacci Number \n":
++					cout << i << " is a not Fibonacci Number \n" ;
++
++    }
++    system("pause");
++    return 0;
++}
+\ No newline at end of file
+diff --git a/projects/palinedrome/CMakeLists.txt b/projects/palinedrome/CMakeLists.txt
+new file mode 100644
+index 0000000..cd13ba6
+--- /dev/null
++++ b/projects/palinedrome/CMakeLists.txt
+@@ -0,0 +1,24 @@
++# Set the minimum version of CMake that can be used
++# To find the cmake version run
++# $ cmake --version
++cmake_minimum_required(VERSION 3.22.1)
++
++
++# Set the project name
++project(palinedrome)
++
++# Create a sources variable with a link to all cpp files to compile
++set(SOURCES
++    src/pal.cpp
++   
++)
++
++# Add an executable with the above sources
++add_executable(palinedrome ${SOURCES})
++
++# Set the directories that should be included in the build command for this target
++# when running g++ these will be included as -I/directory/path/
++target_include_directories(palinedrome
++    PRIVATE 
++        ${PROJECT_SOURCE_DIR}/inc
++)
+\ No newline at end of file
+diff --git a/projects/palinedrome/inc/pal.h b/projects/palinedrome/inc/pal.h
+new file mode 100644
+index 0000000..c8adec1
+--- /dev/null
++++ b/projects/palinedrome/inc/pal.h
+@@ -0,0 +1,4 @@
++#include <iostream>
++#include <math.h>
++#include <string.h>
++using namespace std;
+\ No newline at end of file
+diff --git a/projects/palinedrome/src/pal.cpp b/projects/palinedrome/src/pal.cpp
+new file mode 100644
+index 0000000..5d1bba0
+--- /dev/null
++++ b/projects/palinedrome/src/pal.cpp
+@@ -0,0 +1,27 @@
++#include "pal.h"
++
++int main(){
++    char string1[]="najmus";
++    int i, length;
++    int flag = 0;
++    
++    cout<<"********************* Palinedrome program is Running **************************"<<endl;
++    
++    length = strlen(string1);
++    
++    for(i=0;i < length ;i++){
++        if(string1[i] != string1[length-i-1]){
++            flag = 1;
++            break;
++   }
++}
++    
++    if (flag) {
++        cout << string1 << " is not a palindrome" << endl; 
++    }    
++    else {
++        cout << string1 << " is a palindrome" << endl; 
++    }
++    system("pause");
++    return 0;
++}
+\ No newline at end of file
+diff --git a/projects/prime_num/CMakeLists.txt b/projects/prime_num/CMakeLists.txt
+new file mode 100644
+index 0000000..4bda0ed
+--- /dev/null
++++ b/projects/prime_num/CMakeLists.txt
+@@ -0,0 +1,24 @@
++# Set the minimum version of CMake that can be used
++# To find the cmake version run
++# $ cmake --version
++cmake_minimum_required(VERSION 3.22.1)
++
++
++# Set the project name
++project(prime)
++
++# Create a sources variable with a link to all cpp files to compile
++set(SOURCES
++    src/prime.cpp
++   
++)
++
++# Add an executable with the above sources
++add_executable(prime ${SOURCES})
++
++# Set the directories that should be included in the build command for this target
++# when running g++ these will be included as -I/directory/path/
++target_include_directories(prime
++    PRIVATE 
++        ${PROJECT_SOURCE_DIR}/inc
++)
+\ No newline at end of file
+diff --git a/projects/prime_num/inc/prime.h b/projects/prime_num/inc/prime.h
+new file mode 100644
+index 0000000..ad56612
+--- /dev/null
++++ b/projects/prime_num/inc/prime.h
+@@ -0,0 +1,4 @@
++#include <iostream>
++#include <math.h>
++#include <bits/stdc++.h>
++using namespace std;
+\ No newline at end of file
+diff --git a/projects/prime_num/src/prime.cpp b/projects/prime_num/src/prime.cpp
+new file mode 100644
+index 0000000..fb516c6
+--- /dev/null
++++ b/projects/prime_num/src/prime.cpp
+@@ -0,0 +1,25 @@
++#include "prime.h"
++
++bool isPrime(int n)
++{
++	// Corner case
++	if (n <= 1)
++		return false;
++
++	// Check from 2 to n-1
++	for (int i = 2; i < n; i++)
++		if (n % i == 0)
++			return false;
++
++	return true;
++}
++
++// Driver Program to test above function
++int main()
++{
++    cout<<"********************* PRIME program is Running **************************"<<endl;
++	isPrime(11) ? cout << " true\n" : cout << " false\n";
++	isPrime(15) ? cout << " true\n" : cout << " false\n";
++	system("pause");
++    return 0;
++}
+diff --git a/projects/sayBye/CMakeLists.txt b/projects/sayBye/CMakeLists.txt
+new file mode 100644
+index 0000000..130b843
+--- /dev/null
++++ b/projects/sayBye/CMakeLists.txt
+@@ -0,0 +1,24 @@
++# Set the minimum version of CMake that can be used
++# To find the cmake version run
++# $ cmake --version
++cmake_minimum_required(VERSION 3.22.1)
++
++
++# Set the project name
++project(bye)
++
++# Create a sources variable with a link to all cpp files to compile
++set(SOURCES
++    src/bye.cpp
++   
++)
++
++# Add an executable with the above sources
++add_executable(bye ${SOURCES})
++
++# Set the directories that should be included in the build command for this target
++# when running g++ these will be included as -I/directory/path/
++target_include_directories(bye
++    PRIVATE 
++        ${PROJECT_SOURCE_DIR}/inc
++)
+\ No newline at end of file
+diff --git a/projects/sayBye/inc/bye.h b/projects/sayBye/inc/bye.h
+new file mode 100644
+index 0000000..89369c4
+--- /dev/null
++++ b/projects/sayBye/inc/bye.h
+@@ -0,0 +1,2 @@
++#include <iostream>
++using namespace std;
+\ No newline at end of file
+diff --git a/projects/sayBye/src/bye.cpp b/projects/sayBye/src/bye.cpp
+new file mode 100644
+index 0000000..446fcf7
+--- /dev/null
++++ b/projects/sayBye/src/bye.cpp
+@@ -0,0 +1,9 @@
++#include "bye.h"
++
++
++int main(){
++
++    cout<<"*************** Bye najmus *********************"<<endl;
++    system("pause");
++    return 0;
++}
+\ No newline at end of file
+diff --git a/projects/sumOfdigit/CMakeLists.txt b/projects/sumOfdigit/CMakeLists.txt
+new file mode 100644
+index 0000000..d3e4786
+--- /dev/null
++++ b/projects/sumOfdigit/CMakeLists.txt
+@@ -0,0 +1,24 @@
++# Set the minimum version of CMake that can be used
++# To find the cmake version run
++# $ cmake --version
++cmake_minimum_required(VERSION 3.22.1)
++
++
++# Set the project name
++project(SOD)
++
++# Create a sources variable with a link to all cpp files to compile
++set(SOURCES
++    src/SOD.cpp
++   
++)
++
++# Add an executable with the above sources
++add_executable(SOD ${SOURCES})
++
++# Set the directories that should be included in the build command for this target
++# when running g++ these will be included as -I/directory/path/
++target_include_directories(SOD
++    PRIVATE 
++        ${PROJECT_SOURCE_DIR}/inc
++)
+\ No newline at end of file
+diff --git a/projects/sumOfdigit/inc/SOD.h b/projects/sumOfdigit/inc/SOD.h
+new file mode 100644
+index 0000000..89369c4
+--- /dev/null
++++ b/projects/sumOfdigit/inc/SOD.h
+@@ -0,0 +1,2 @@
++#include <iostream>
++using namespace std;
+\ No newline at end of file
+diff --git a/projects/sumOfdigit/src/SOD.cpp b/projects/sumOfdigit/src/SOD.cpp
+new file mode 100644
+index 0000000..eefa3df
+--- /dev/null
++++ b/projects/sumOfdigit/src/SOD.cpp
+@@ -0,0 +1,16 @@
++#include "SOD.h"
++
++int main()  
++{  
++    int n=123,sum=0,m;    
++    cout<<"********************* Sum of digit program is Running **************************"<<endl;
++    while(n>0)    
++    {    
++    m=n%10;    
++    sum=sum+m;    
++    n=n/10;    
++    }    
++    cout<<"Sum is= "<<sum<<endl;    
++    system("pause");
++    return 0; 
++}  
+\ No newline at end of file
+
+commit e20cae14f9f3f71e8687f6ab3a96ca30bb852b05
+Author: JP-GITv1 <100771978+JP-GITv1@users.noreply.github.com>
+Date:   Tue Mar 8 13:02:11 2022 +0100
+
+    1st Main Commit
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..1ede204
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,8 @@
++cmake_minimum_required(VERSION 3.22.1)
++
++project(saquib)
++
++# Include sub-projects.
++add_subdirectory (projects)
++
++
+diff --git a/checkout.bat b/checkout.bat
+new file mode 100644
+index 0000000..d022c01
+--- /dev/null
++++ b/checkout.bat
+@@ -0,0 +1,12 @@
++@echo off
++set path_for_repo_fd=%~dp0
++cd  %path_for_repo_fd%
++git --version    rem git cmd
++dir  
++git status
++git log --pretty=oneline 
++git tag
++git branch -a
++git checkout tags/V1.1
++git checkout SubBranch_Sample
++
